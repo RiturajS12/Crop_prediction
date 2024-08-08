@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction Result</title>
+    <style>
+        @font-face {
+            font-family: "GrapeNutsRegular";
+            src: url("/static/fonts/GrapeNuts/GrapeNutsRegular/GrapeNutsRegular.eot");
+            src: url("/static/fonts/GrapeNuts/GrapeNutsRegular/GrapeNutsRegular.eot?#iefix")format("embedded-opentype"),
+            url("/static/fonts/GrapeNuts/GrapeNutsRegular/GrapeNutsRegular.woff") format("woff"),
+            url("/static/fonts/GrapeNuts/GrapeNutsRegular/GrapeNutsRegular.ttf") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(185,180,167);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .logo img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        .detail h1 {
+            position: relative;
+            top: -10px;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .language-switcher {
+            margin-bottom: 20px;
+        }
+        .language-switcher button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: black;
+            color: #ffffff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .language-switcher button:hover {
+            background-color: white;
+            color: black;
+        }
+        .crops-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .crop-item {
+            background-color: rgb(113,167,209);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .crop-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .crop-item p {
+            font-size: 1rem;
+            color: #333;
+            margin: 0;
+        }
+        .details-card {
+            position: relative;
+            top: 20px;
+            background-color: rgb(174, 186, 164);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            font-family: "GrapeNutsRegular";
+        }
+        .details-card h3 {
+            font-size: 1.75rem;
+            color: black;
+            margin-bottom: 15px;
+        }
+        .details-card p {
+            font-size: 1rem;
+            color: black;
+            line-height: 2.6;
+        }
+        .details-card .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .details-card .button:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="language-switcher">
+        <button id="switchLanguage">Switch to Hindi</button>
+    </div>
+
+    <div class="logo">
+        <img src="/static/wheat_11682491.png" alt="Crops Logo">
+    </div>
+
+    <div class="detail">
+        <h1 id="pageTitle">Recommended Crops</h1>
+    </div>
+
+    <div class="crops-section">
+        {% for item in crop_image_pairs %}
+            <div class="crop-item">
+                <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.crop }}">
+                <p>{{ item.crop }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="details-card">
+        <h3 id="nextStepsTitle">Next Steps</h3>
+        <p id="nextStepsText">
+            Based on the data you provided, the most suitable crop cluster has been recommended above. 
+            Please consider this information when planning your crops.
+        </p>
+        <a href="/" class="button">Go Back</a>
+    </div>
+
+    <script>
+        document.getElementById('switchLanguage').addEventListener('click', function() {
+            const title = document.getElementById('pageTitle');
+            const nextStepsTitle = document.getElementById('nextStepsTitle');
+            const nextStepsText = document.getElementById('nextStepsText');
+            const button = document.getElementById('switchLanguage');
+
+            if (button.textContent === 'Switch to Hindi') {
+                title.textContent = 'सिफारिश की गई फसलें';
+                nextStepsTitle.textContent = 'अगले कदम';
+                nextStepsText.textContent = 'आपके द्वारा प्रदान किए गए डेटा के आधार पर, सबसे उपयुक्त फसल क्लस्टर को ऊपर अनुशंसित किया गया है। कृपया फसलों की योजना बनाते समय इस जानकारी पर विचार करें।';
+                button.textContent = 'Switch to English';
+            } else {
+                title.textContent = 'Recommended Crops';
+                nextStepsTitle.textContent = 'Next Steps';
+                nextStepsText.textContent = 'Based on the data you provided, the most suitable crop cluster has been recommended above. Please consider this information when planning your crops.';
+                button.textContent = 'Switch to Hindi';
+            }
+        });
+    </script>
+
+</body>
+</html>

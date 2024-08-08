@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop prediction</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <div class="logo">
+        <img src="/static/wheat_11682491.png" alt="Crops Logo">
+    </div>
+
+    <div class="detail">
+        <h1>Farming Crop Prediction</h1>
+    </div>
+
+    <div class="container">
+        <div class="image-section">
+            <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+        </div>
+
+        <div class="form-section">
+            <div class="form-card">
+                <h2>Enter Details</h2>
+                <form action="/get_result" method="post">
+                    <label for="N">N (नाइट्रोजन):</label>
+                    <input type="text" id="N" name="N" placeholder="Enter Nitrogen value">
+
+                    <label for="P">P (फॉस्फोरस):</label>
+                    <input type="text" id="P" name="P" placeholder="Enter Phosphorus value">
+
+                    <label for="K">K (पोटैशियम):</label>
+                    <input type="text" id="K" name="K" placeholder="Enter Potassium value">
+
+                    <label for="temperature">Temperature (तापमान):</label>
+                    <input type="text" id="temperature" name="temperature" placeholder="Enter Temperature value">
+
+                    <label for="humidity">Humidity (आर्द्रता):</label>
+                    <input type="text" id="humidity" name="humidity" placeholder="Enter Humidity value">
+
+                    <label for="ph">pH (पीएच मान):</label>
+                    <input type="text" id="ph" name="ph" placeholder="Enter pH value">
+
+                    <label for="rainfall">Rainfall (वर्षा):</label>
+                    <input type="text" id="rainfall" name="rainfall" placeholder="Enter Rainfall value">
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="result-card" id="resultCard">
+        <img src="/static/crop.png" alt="Crop Image">
+        <p id="resultText"></p>
+    </div>
+
+    <div class="details-card">
+        <h3 id="details-title">How to Get Your Crop Recommendation</h3>
+        <p id="details-text">
+            To get a recommendation for the best crop to plant, please fill in all the details in the form provided. 
+            Ensure that you enter accurate values for Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, and Rainfall. 
+            Once you have entered the information, click the "Submit" button to receive your crop recommendation.
+        </p>
+        <button class="translate-button" onclick="translateDetails()">जानकारी हिंदी में देखें</button>
+    </div>
+
+    <script>
+        function translateDetails() {
+            const detailsTitle = document.getElementById('details-title');
+            const detailsText = document.getElementById('details-text');
+            const translateButton = document.querySelector('.translate-button');
+
+            if (detailsTitle.innerText === 'How to Get Your Crop Recommendation') {
+                detailsTitle.innerText = 'अपनी फसल की सिफारिश कैसे प्राप्त करें';
+                detailsText.innerText = 'सबसे अच्छी फसल की सिफारिश प्राप्त करने के लिए, कृपया प्रदान किए गए फॉर्म में सभी विवरण भरें। सुनिश्चित करें कि आप नाइट्रोजन, फॉस्फोरस, पोटैशियम, तापमान, आर्द्रता, पीएच, और वर्षा के लिए सही मान दर्ज करें। जानकारी भरने के बाद, "सबमिट" बटन पर क्लिक करें।';
+                translateButton.innerText = 'Tap for english';
+            } else {
+                detailsTitle.innerText = 'How to Get Your Crop Recommendation';
+                detailsText.innerText = 'To get a recommendation for the best crop to plant, please fill in all the details in the form provided. Ensure that you enter accurate values for Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, and Rainfall. Once you have entered the information, click the "Submit" button to receive your crop recommendation.';
+                translateButton.innerText = 'जानकारी हिंदी में देखें';
+            }
+        }
+    </script>
+
+</body>
+</html>
